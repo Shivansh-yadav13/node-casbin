@@ -322,7 +322,7 @@ export class Enforcer extends ManagementEnforcer {
    * getUsersForRole("user") can only get: ["role:admin"].
    * But getImplicitUsersForRole("user") will get: ["role:admin", "alice"].
    */
-   public async getImplicitUsersForRole(role: string, ...domain: string[]): Promise<string[]> {
+  public async getImplicitUsersForRole(role: string, ...domain: string[]): Promise<string[]> {
     const res = new Set<string>();
     const q = [role];
     let n: string | undefined;
