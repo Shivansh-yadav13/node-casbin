@@ -52,6 +52,12 @@ test('test getImplicitRolesForUser', async () => {
   expect(await e.getImplicitRolesForUser('alice')).toEqual(['admin', 'data1_admin', 'data2_admin']);
 });
 
+test('test getImplicitUsersForRole', async () => {
+  const e = await newEnforcer('examples/rbac_model.conf', 'examples/rbac_with_hierarchy_policy.csv');
+  expect(await e.getImplicitUsersForRole('admin')).toEqual(['alice']);
+  expect(await e.getImplicitUsersForRole('data1_admin')).toEqual(['admin', 'alice']);
+});
+
 test('test getImplicitRolesForUser with domain', async () => {
   const e = await newEnforcer('examples/rbac_with_domains_model.conf', 'examples/rbac_with_hierarchy_with_domains_policy.csv');
   expect(await e.getImplicitRolesForUser('alice', 'domain1')).toEqual(['role:global_admin', 'role:reader', 'role:writer']);
